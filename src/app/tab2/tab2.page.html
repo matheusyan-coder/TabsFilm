@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Séries
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true"> <!--por isso ta true-->
+
+  <ion-list *ngIf="listaSeries"> <!--quer lista ion-list tudo ta dentro colocou ngIf clausula angular q vai checar se dentro da variavel listaFilmes (ta no ts dentro de constructor) contem dados // se retornar verdadeiro monta a lista, se tiver nula nem monta-->
+
+    <ion-item-sliding *ngFor="let serie of listaSeries"> <!--cada linha da lista é o ion-item // forit percorre a lista, p cada item gera um objeto independente (p cada item (filme) ele vai gerar um objeto filme)-->
+      <ion-item lines="full" (click)="exibirSerie(serie)"> <!--monta automatico com o ngFor--> <!--full faz a linha de divisão-->
+
+        <ion-thumbnail slot="start"> <!--start lado esquerdo end lado direito img-->
+          <img *ngIf="serie.cartazS" src="{{serie.cartazS}}" /> <!--site themoviedb, define na variavel dentro da listafilme-->
+          <ion-icon *ngIf="!serie.cartazS" name="videocam-off"></ion-icon> <!--esse nome é do ionic framework se o filme nao tiver nada (!), ai ele mostra o icon-->
+        </ion-thumbnail>
+
+        <ion-label class="ion-text-wrap">
+          <div>
+            <h1>{{serie.nomeS}}</h1>
+            
+            <p>{{serie.lancamentoS}}</p>
+            <p>{{serie.temporadaS}}</p>
+            <ion-badge color="medium" *ngFor="let genero of serie.generosS"> <!--p cada genero pega um objeto p isso q serve os bgl separado ngFor q faz isso-->
+              {{genero}}
+            </ion-badge>
+            <ion-icon name="star" [color]="serie.favoritoS===true ? 'warning' : ('light')"></ion-icon> <!--o () nao é obrigatorio qnd so é uma situação e qnd acaba n precisa dele-->
+            
+          </div>
+        </ion-label>
+
+        <ion-chip [color]="serie.classificacaoS < 5 ? 'danger' : (serie.classificacaoS < 7 ? 'warning' : 'success')"
+          outline> <!--USAR ION-CHIP P mais de duas coisas (tem três cores nesse caso)-->
+          <ion-label>{{serie.classificacaoS}}</ion-label>
+        </ion-chip>
+      </ion-item>
+
+      <ion-item-options side="end"> <!--isso é por conta do item-slide pq tem q ter / tudo aquilo q colocar nas opções vai aparecer no lado direito da tela (end)-->
+        <ion-item-option color="primary" (click)="exibirAlertaFavorito(serie)"> <!--opções de botões q vao ter la-->
+          <ion-icon slot="icon-only" name="star"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+  </ion-list>
+</ion-content>

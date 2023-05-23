@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Atores
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true"> <!--por isso ta true-->
+
+  <ion-list *ngIf="listaAtores"> <!--quer lista ion-list tudo ta dentro colocou ngIf clausula angular q vai checar se dentro da variavel listaFilmes (ta no ts dentro de constructor) contem dados // se retornar verdadeiro monta a lista, se tiver nula nem monta-->
+
+    <ion-item-sliding *ngFor="let ator of listaAtores"> <!--cada linha da lista é o ion-item // forit percorre a lista, p cada item gera um objeto independente (p cada item (filme) ele vai gerar um objeto filme)-->
+      <ion-item lines="full" (click)="exibirAtor(ator)"> <!--monta automatico com o ngFor--> <!--full faz a linha de divisão-->
+
+        <ion-thumbnail slot="start"> <!--start lado esquerdo end lado direito img-->
+          <img *ngIf="ator.cartazA" src="{{ator.cartazA}}" /> <!--site themoviedb, define na variavel dentro da listafilme-->
+          <ion-icon *ngIf="!ator.cartazA" name="videocam-off"></ion-icon> <!--esse nome é do ionic framework se o filme nao tiver nada (!), ai ele mostra o icon-->
+        </ion-thumbnail>
+        
+        <ion-label class="ion-text-wrap">
+          
+          <div>
+            <h1>{{ator.nomeA}}</h1>
+            <p>{{ator.ocupacaoA}}</p>
+            <ion-badge color="medium" *ngFor="let filme of ator.filmeA"> <!--p cada genero pega um objeto p isso q serve os bgl separado ngFor q faz isso-->
+              {{filme}}
+            </ion-badge>
+            
+          </div>
+        </ion-label>
+
+      </ion-item>
+
+    </ion-item-sliding>
+
+  </ion-list>
+</ion-content>

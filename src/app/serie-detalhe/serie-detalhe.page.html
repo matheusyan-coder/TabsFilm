@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button> <!--botao back p voltar-->
+    </ion-buttons>
+    <ion-title>{{serie.nomeS}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-card *ngIf="serie"> 
+    <ion-card-header>
+      <img *ngIf="serie.cartazS" src="{{serie.cartazS}}" />
+      <ion-icon *ngIf="!serie.cartazS" name="videocam-off"></ion-icon>
+    </ion-card-header>
+
+    <ion-card-content>
+      <h1>{{serie.nomeS}} <ion-icon name="star" [color]="serie.favoritoS===true ? 'warning' : ('light')"></ion-icon></h1>
+      <p>{{serie.lancamentoS}}
+        <ion-chip [color]="serie.classificacaoS < 5 ? 'danger' : ((serie.classificacaoS < 7 ? 'warning' : 'success'))"
+          outline>
+          <ion-label>{{serie.classificacaoS}}</ion-label>
+        </ion-chip>
+      </p>
+    </ion-card-content>
+    <ion-item>
+      <ion-badge color="medium" *ngFor="let genero of serie.generosS">{{genero}}</ion-badge>
+    </ion-item>
+  </ion-card>
+</ion-content>

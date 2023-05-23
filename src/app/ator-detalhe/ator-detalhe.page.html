@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button> <!--botao back p voltar-->
+    </ion-buttons>
+    <ion-title>{{ator.nome}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-card *ngIf="ator"> 
+    <ion-card-header>
+      <img *ngIf="ator.cartazA" src="{{ator.cartazA}}" />
+      <ion-icon *ngIf="!ator.cartazA" name="videocam-off"></ion-icon>
+    </ion-card-header>
+
+    <ion-card-content>
+      <h1>{{ator.nomeA}} <ion-icon name="star" [color]="ator.favoritoA===true ? 'warning' : ('light')"></ion-icon></h1>
+      <p>{{ator.lancamentoA}}
+        <ion-chip [color]="ator.ocupacaoA < 5 ? 'danger' : ((ator.ocupacaoA < 7 ? 'warning' : 'success'))"
+          outline>
+          <ion-label>{{ator.ocupacaoA}}</ion-label>
+        </ion-chip>
+      </p>
+    </ion-card-content>
+    <ion-item>
+      <ion-badge color="medium" *ngFor="let filme of ator.filmeA">{{filme}}</ion-badge>
+    </ion-item>
+  </ion-card>
+</ion-content>

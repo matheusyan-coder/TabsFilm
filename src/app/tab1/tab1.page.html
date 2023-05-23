@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Filmes
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true"> <!--por isso ta true-->
+
+  <ion-list *ngIf="listaFilmes"> <!--quer lista ion-list tudo ta dentro colocou ngIf clausula angular q vai checar se dentro da variavel listaFilmes (ta no ts dentro de constructor) contem dados // se retornar verdadeiro monta a lista, se tiver nula nem monta-->
+
+    <ion-item-sliding *ngFor="let filme of listaFilmes"> <!--cada linha da lista é o ion-item // forit percorre a lista, p cada item gera um objeto independente (p cada item (filme) ele vai gerar um objeto filme)-->
+      <ion-item lines="full" (click)="exibirFilme(filme)"> <!--monta automatico com o ngFor--> <!--full faz a linha de divisão-->
+
+        <ion-thumbnail slot="start"> <!--start lado esquerdo end lado direito img-->
+          <img *ngIf="filme.cartaz" src="{{filme.cartaz}}" /> <!--site themoviedb, define na variavel dentro da listafilme-->
+          <ion-icon *ngIf="!filme.cartaz" name="videocam-off"></ion-icon> <!--esse nome é do ionic framework se o filme nao tiver nada (!), ai ele mostra o icon-->
+        </ion-thumbnail>
+
+        <ion-label class="ion-text-wrap">
+          <div>
+            <h1>{{filme.nome}}</h1>
+            <p>{{filme.lancamento}}</p>
+            <ion-badge color="medium" *ngFor="let genero of filme.generos"> <!--p cada genero pega um objeto p isso q serve os bgl separado ngFor q faz isso-->
+              {{genero}}
+            </ion-badge>
+            <ion-icon name="star" [color]="filme.favorito===true ? 'warning' : ('light')"></ion-icon> <!--o () nao é obrigatorio qnd so é uma situação e qnd acaba n precisa dele-->
+            <!--
+              estabelecer uma condição em cima de propriedade (TEM Q APARECER EM COLCHETE), nesse caso é da color, se favorito for true fica amarela, if not fica no cinza
+              ESTRUTURA --------   condição ? verdadeiro : falso
+              : (é o else)
+          -->
+          </div>
+        </ion-label>
+
+        <ion-chip [color]="filme.classificacao < 5 ? 'danger' : (filme.classificacao < 7 ? 'warning' : 'success')"
+          outline> <!--USAR ION-CHIP P mais de duas coisas (tem três cores nesse caso)-->
+          <ion-label>{{filme.classificacao}}</ion-label>
+        </ion-chip>
+      </ion-item>
+
+      <ion-item-options side="end"> <!--isso é por conta do item-slide pq tem q ter / tudo aquilo q colocar nas opções vai aparecer no lado direito da tela (end)-->
+        <ion-item-option color="primary" (click)="exibirAlertaFavorito(filme)"> <!--opções de botões q vao ter la-->
+          <ion-icon slot="icon-only" name="star"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+  </ion-list>
+</ion-content>
